@@ -1,6 +1,7 @@
 package com.company;
 import java.io.*;
 
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -10,7 +11,7 @@ public class Main {
         int countArithmeticOperators = 0;
 
         //Read file
-	    File file = new File("*.java");
+        File file = new File("*.java");
 
         FileReader fReader = new FileReader(file);
         String line;
@@ -19,8 +20,8 @@ public class Main {
         String z = "";
         String p = "";
         while ((line=bReader.readLine()) != null){
-
-            if(line.contains("/*") || line.contains("*/") || line.contains("//")){
+            line = line.trim();
+            if(line.isEmpty() || line.contains("/*")  || line.charAt(0) == '*'|| line.contains("*/") || line.contains("//") ){
 
             }else{
                 z+=line;
@@ -41,6 +42,7 @@ public class Main {
         lexical.isLogicalOperators(p);
         lexical.isAritmetical(p);
         lexical.isUnary(p);
+        lexical.isBitWise(p);
 
     }
 }

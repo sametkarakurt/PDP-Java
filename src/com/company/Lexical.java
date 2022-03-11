@@ -11,7 +11,7 @@ public class Lexical {
 
     String [] arithmeticOperators = {"+","-","*","/","%","++","--"};
 
-    
+    String [] bitWiseOperators = {"~","<<",">>",">>>","&","^","|"};
 
     String[] allOperators = {"singleOperators","dualOperators","relationalOperators","logicalOperators","arithmeticOperators"};
 
@@ -111,6 +111,36 @@ public class Lexical {
         }
 
         System.out.println("Tekli Operatör Sayısı: "+count);
+    }
+
+    public void isBitWise(String value) {
+        int count = 0;
+
+        for (String x : bitWiseOperators) {
+            String z = value;
+
+
+            while (z.contains(x)) {
+                if(x == "&" || x=="|" || x==">>" ){
+                    if (z.charAt(z.indexOf(x) + 1) == '&' || z.charAt(z.indexOf(x) + 1)  == '|' || z.charAt(z.indexOf(x) + 2)  == '>') {
+                        z = z.substring(z.indexOf(x) + 2, z.length());
+                    }else{
+                        z = z.substring(z.indexOf(x) + x.length(), z.length());
+                        count++;
+                    }
+                }else{
+
+                    z = z.substring(z.indexOf(x) + x.length(), z.length());
+                    count++;
+                }
+
+            }
+
+
+
+        }
+
+        System.out.println("Bitwise Operatör Sayısı: "+count);
     }
 
 
