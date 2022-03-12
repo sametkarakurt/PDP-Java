@@ -5,18 +5,13 @@ public class Deneme {
     public Deneme(int x,int y) {
         this.x = x;
         this.y = y; }
-    /* *
-     * x*x + y*y // işlemi x > 0 ve y > 0
-     */
+
     public int x2y2() {
-        return x * x + y * y;
-    } /*
-     * Karakök işlemi yapan fonksiyon * karakok(x*x + y*y)
-     */
+        return x * y++ ;
+    }
     public double karakok() {
         return Math.sqrt((double)x2y2());
     }
-    // log2(x/++y)
     public double log2() {
         ++y;
         return Math.log(((double)x)/y);

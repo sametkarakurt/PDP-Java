@@ -6,43 +6,14 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        //create lexical object
         Lexical lexical = new Lexical();
 
-        int countArithmeticOperators = 0;
+        FileRead fileRead = new FileRead();
 
-        //Read file
-        File file = new File("*.java");
+        String text = fileRead.readFile("*.java");
 
-        FileReader fReader = new FileReader(file);
-        String line;
-
-        BufferedReader bReader = new BufferedReader(fReader);
-        String z = "";
-        String p = "";
-        while ((line=bReader.readLine()) != null){
-            line = line.trim();
-            if(line.isEmpty() || line.contains("/*")  || line.charAt(0) == '*'|| line.contains("*/") || line.contains("//") ){
-
-            }else{
-                z+=line;
-            }
-
-
-        }
-
-        String [] arr = z.split(" ");
-
-        for (String k : arr) {
-
-            p += k;
-        }
-
-
-        lexical.isRelationalOperators(p);
-        lexical.isLogicalOperators(p);
-        lexical.isAritmetical(p);
-        lexical.isUnary(p);
-        lexical.isBitWise(p);
+        lexical.countOfOperators(text);
 
     }
 }
