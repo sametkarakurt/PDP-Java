@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 public class Lexical {
 
     //All operators
@@ -8,79 +10,67 @@ public class Lexical {
 
     String [] logicalOperators = {"&&","||","!"};
 
-    String [] arithmeticOperators = {"+","-","*","/","%","++","--","&","|","^","+=","-=","/=","/=","*=","%=","&=","|=","!="};
-
-    String [] allOperators = {"+","-","*","/","%","++","--","&","|","^","+=","-=","/=","/=","*=","%=","&=","|=","!=","&&","||","!","==","!=",">","<",">=","<="};
 
 
-    private void isRelationalOperators(String value){
+
+
+    public int isRelationalOperators(String value){
         int count = 0;
 
-        for (String operator : relationalOperators) {
-            String copyText = value;
-            while (copyText.contains(operator)){
-                count++;
-                copyText = copyText.substring(copyText.indexOf(operator)+2,copyText.length());
 
-            }
-        }
+        Pattern pattern = Pattern.compile("<=|>=|==|!=|^<$|^>$");
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find())
+            count++;
 
-        System.out.println("İlişkisel Operatör Sayısı: "+count);
+        return count;
 
     }
-    private void isLogicalOperators(String value) {
+    public int isLogicalOperators(String value) {
         int count = 0;
 
-        for (String operator : logicalOperators) {
-            String copyText = value;
-
-            while (copyText.contains(operator)) {
-                if (copyText.charAt(copyText.indexOf(operator) + 1) != '=') {
-                    count++;
-                }
-                copyText = copyText.substring(copyText.indexOf(operator) + 2, copyText.length());
-            }
-        }
-        System.out.println("Mantıksal Operatör Sayısı: "+count);
+        Pattern pattern = Pattern.compile("\\|{2}|&&|!(?!=)");
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find())
+            count++;
+        return count;
     }
 
-    private void isAritmetical(String value) {
+    public int isUnary(String value) {
         int count = 0;
 
-        for (String operator : arithmeticOperators) {
-            String copyText = value;
+        Pattern pattern = Pattern.compile("\\+{2}|\\-{2}");
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find())
+            count++;
+        return count;
+    }
 
+    public int isBinary(String value) {
+        int count = 0;
 
-            while (copyText.contains(operator)) {
-
-                if(operator == "+" || operator== "-" || operator=="*" || operator=="%" || operator=="|" || operator=="^" || operator=="&" || operator=="/" || operator=="="){
-                    if (copyText.charAt(copyText.indexOf(operator) + 1) == '+' || copyText.charAt(copyText.indexOf(operator) + 1) == '-' || copyText.charAt(copyText.indexOf(operator) + 1) == '=' || copyText.charAt(copyText.indexOf(operator) + 1) == '&' || copyText.charAt(copyText.indexOf(operator) + 1) == '|' || copyText.charAt(copyText.indexOf(operator) + -1) == '!') {
-                        copyText = copyText.substring(copyText.indexOf(operator) + 2, copyText.length());
-                    }else{
-                        copyText = copyText.substring(copyText.indexOf(operator) + operator.length(), copyText.length());
-                        count++;
-                    }
-                }else{
-
-                    copyText = copyText.substring(copyText.indexOf(operator) + operator.length(), copyText.length());
-                    count++;
-                }
-
-            }
-
-        }
-
-        System.out.println("Sayısal Operatör Sayısı: "+count);
+        Pattern pattern = Pattern.compile("(?<!\\+)\\+(?!\\+|=)|(?<!\\-)\\-(?!-|=)|(?<!\\+|<|>|!|=|-|/|\\*|%|\\||&|\\^)=(?!=)|/(?!=)|\\*(?!=)|%(?!=)");
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find())
+            count++;
+        return count;
     }
 
 
-    public void countOfOperators(String text){
-        isAritmetical(text);
-        isRelationalOperators(text);
-        isLogicalOperators(text);
+
+    public int isAritmetical(String value) {
+        int count = 0;
+
+
+        Pattern pattern = Pattern.compile("\\+=|-=|/=|\\*=|%=|&=|\\|=|\\^=|\\++|\\+|--|-|\\*|/|%|(?<!&)&(?!&)|(?<!\\|)\\|(?!\\|)|\\^|(?<!<|>|!|=)=(?!=)");
+        Matcher matcher = pattern.matcher(value);
+        while (matcher.find())
+             count++;
+        return count;
     }
+
+
 
 
 }
-
 
