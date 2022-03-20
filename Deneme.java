@@ -1,28 +1,15 @@
-package odev;
-public class Deneme {
-    public int x;
-    public int y;
-    public Deneme(int x,int y) {
-        this.x = x;
-        this.y = y; }
+public class Aritmetik {
+    public static void main(String[] args) {
+        int x = 10;
+        int y = 3;
+        System.out.println("x + y = " + (x + y) );
+        System.out.println("x - y = " + (x - y));
+        Bölüm 06: Operatörler 2
+        System.out.println("x * y =" + x * y);
+        System.out.println("x / y = " + x / y);
+        System.out.println("x % y = " + x % y);
 
-    public int x2y2() {
-        return x * x + y * y;
-
-     * Karakök işlemi yapan fonksiyon * karakok(x*x + y*y)
-     */
-    public double karakok() {
-        return Math.sqrt((double)x2y2());
+        System.out.println("x++ = " + x++ );
+        System.out.println("y-- = " + y-- );
     }
-    // log2(x/++y)
-    public double log2() {
-        ++y;
-        return Math.log(((double)x)/y);
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if(obj != null && obj instanceof Deneme) {
-            return ((Deneme)obj).x == this.x && ((Deneme)obj).y == this.y;
-        }
-        return false; }
 }
